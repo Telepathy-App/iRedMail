@@ -1,0 +1,20 @@
+---
+
+- name: Set a hostname
+  become: true
+  ansible.builtin.hostname:
+    name: "{{hostname}}"
+
+- name: Create a directory
+  become: true
+  ansible.builtin.file:
+    path: "{{to_dir}}"
+    state: directory
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+
+- name: Download
+  ansible.builtin.get_url:
+    url: "{{download_url}}"
+    dest: "{{to_dir}}/{{version}}.tar.gz"
+    force: no
